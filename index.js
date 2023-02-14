@@ -1,10 +1,12 @@
 const express = require('express')
 var bodyParser = require('body-parser'); 
+var mongoose = require('mongoose');
+var {Schema} = mongoose;
 var jwt = require('jsonwebtoken'); // for user authentication 
 var dotenv = require('dotenv').config();
 const bcrypt = require('bcrypt'); // for password encryption 
 var cookieParser = require('cookie-parser')
-const db = require('./db.js') // importing moongoose connection module 
+// const db = require('./db.js') // importing moongoose connection module 
 var User = require('./models/User.js') // importing mongoose schema 
 const app = express()
 const port = process.env.PORT || 500
@@ -14,10 +16,17 @@ const cors = require('cors');
 // app.use(cors({credentials:true}))
 app.use(cookieParser())
 
-db()
+// db()
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json())
+
+    const DB =process.env.DB_URL
+    console.log(DB)
+    mongoose.connect(DB,{ useNewUrlParser: true, useUnifiedTopology: true  })
+    .then(() => console.log('Connected!'))
+    .catch(err=> console.log(err));
+
 
 app.get('/',function(req,res){
   User.find(function(err,result){
