@@ -9,9 +9,9 @@ var User = require('./models/User.js') // importing mongoose schema
 const app = express()
 const port = process.env.PORT || 500
 const cors = require('cors');
-app.use(cors({ origin: true })); // using cors for fetching the data from fetch api easily
+// app.use(cors({ origin: true })); // using cors for fetching the data from fetch api easily
 // app.use(cors({origin: 'http://localhost:3000',credentials: true,optionsSuccessStatus: 200}))
-app.use(cors({credentials:true}))
+// app.use(cors({credentials:true}))
 app.use(cookieParser())
 
 db()
